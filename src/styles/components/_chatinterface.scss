@@ -78,6 +78,7 @@
             transition: all 0.2s ease;
             text-align: left;
             font-size: var(--font-size-sm);
+            font-family: "Poppins";
 
             &:hover {
               background: var(--bg-tertiary);
@@ -126,6 +127,7 @@
         max-height: 120px;
         min-height: 44px;
         transition: all 0.2s ease;
+        font-family: "Poppins";
 
         &:focus {
           outline: none;

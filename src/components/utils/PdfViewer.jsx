@@ -1,48 +1,10 @@
-import React, { useState, useCallback } from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
-import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCw, Download } from 'lucide-react';
-import { useAppDispatch } from '../../hooks/redux';
+import React, { useState } from 'react';
+import { Download, FileText, ExternalLink } from 'lucide-react';
 import { usePdf } from '../../hooks/redux';
-import { setCurrentPage, setTotalPages } from '../../slices/pdfSlice';
-
-
-
 
 const PdfViewer = () => {
-  const dispatch = useAppDispatch();
-  const { pdfUrl, currentPage, totalPages, fileName } = usePdf();
-  const [scale, setScale] = useState(1.0);
-  const [rotation, setRotation] = useState(0);
+  const { pdfUrl, fileName } = usePdf();
   const [loading, setLoading] = useState(true);
-
-  const onDocumentLoadSuccess = useCallback(({ numPages }) => {
-    dispatch(setTotalPages(numPages));
-    setLoading(false);
-  }, [dispatch]);
-
-  const onDocumentLoadError = useCallback((error) => {
-    console.error('Error loading PDF:', error);
-    setLoading(false);
-  }, []);
-
-  const goToPrevPage = () => {
-    if (currentPage > 1) dispatch(setCurrentPage(currentPage - 1));
-  };
-
-  const goToNextPage = () => {
-    if (currentPage < totalPages) dispatch(setCurrentPage(currentPage + 1));
-  };
-
-  const goToPage = (e) => {
-    const value = parseInt(e.target.value);
-    if (!isNaN(value) && value >= 1 && value <= totalPages) {
-      dispatch(setCurrentPage(value));
-    }
-  };
-
-  const zoomIn = () => setScale(prev => Math.min(prev + 0.25, 3.0));
-  const zoomOut = () => setScale(prev => Math.max(prev - 0.25, 0.5));
-  const rotate = () => setRotation(prev => (prev + 90) % 360);
 
   const downloadPdf = () => {
     if (pdfUrl) {
@@ -55,10 +17,20 @@ const PdfViewer = () => {
     }
   };
 
+  const openInNewTab = () => {
+    if (pdfUrl) {
+      window.open(pdfUrl, '_blank');
+    }
+  };
+
   if (!pdfUrl) {
     return (
       <div className="pdf-viewer pdf-viewer--empty">
-        <p>No PDF loaded</p>
+        <div className="empty-state">
+          <FileText size={48} className="text-gray-400" />
+          <p className="text-gray-600 mt-4">No PDF loaded</p>
+          <p className="text-sm text-gray-500">Upload a PDF to get started</p>
+        </div>
       </div>
     );
   }
@@ -67,53 +39,29 @@ const PdfViewer = () => {
     <div className="pdf-viewer">
       <div className="pdf-toolbar">
         <div className="pdf-toolbar-section">
-          <button
-            className="btn btn-ghost btn-sm"
-            onClick={goToPrevPage}
-            disabled={currentPage <= 1}
-            title="Previous page"
-          >
-            <ChevronLeft size={16} />
-          </button>
-
-          <div className="page-indicator">
-            <input
-              type="number"
-              value={currentPage}
-              onChange={goToPage}
-              min={1}
-              max={totalPages}
-              className="page-input"
-            />
-            <span className="page-total">of {totalPages}</span>
-          </div>
-
-          <button
-            className="btn btn-ghost btn-sm"
-            onClick={goToNextPage}
-            disabled={currentPage >= totalPages}
-            title="Next page"
-          >
-            <ChevronRight size={16} />
-          </button>
+          {fileName && (
+            <span className="pdf-filename" title={fileName}>
+              {fileName.length > 40 ? `${fileName.substring(0, 40)}...` : fileName}
+            </span>
+          )}
         </div>
 
         <div className="pdf-toolbar-section">
-          <button className="btn btn-ghost btn-sm" onClick={zoomOut} disabled={scale <= 0.5} title="Zoom out">
-            <ZoomOut size={16} />
+          <button 
+            className="btn btn-ghost btn-sm" 
+            onClick={openInNewTab} 
+            title="Open in new tab"
+          >
+            <ExternalLink size={16} />
+            <span className="ml-1">Open</span>
           </button>
-          <span className="zoom-indicator">{Math.round(scale * 100)}%</span>
-          <button className="btn btn-ghost btn-sm" onClick={zoomIn} disabled={scale >= 3.0} title="Zoom in">
-            <ZoomIn size={16} />
-          </button>
-        </div>
-
-        <div className="pdf-toolbar-section">
-          <button className="btn btn-ghost btn-sm" onClick={rotate} title="Rotate">
-            <RotateCw size={16} />
-          </button>
-          <button className="btn btn-ghost btn-sm" onClick={downloadPdf} title="Download PDF">
+          <button 
+            className="btn btn-ghost btn-sm" 
+            onClick={downloadPdf} 
+            title="Download PDF"
+          >
             <Download size={16} />
+            <span className="ml-1">Download</span>
           </button>
         </div>
       </div>
@@ -126,23 +74,19 @@ const PdfViewer = () => {
           </div>
         )}
 
-        <Document
-          file={pdfUrl}
-          onLoadSuccess={onDocumentLoadSuccess}
-          onLoadError={onDocumentLoadError}
-          loading={<p>Loading document...</p>}
-          className="pdf-document"
-        >
-          <Page
-            pageNumber={currentPage}
-            scale={scale}
-            rotate={rotation}
-            className="pdf-page"
-            renderTextLayer={true}
-            renderAnnotationLayer={true}
-            loading={<p>Loading page...</p>}
-          />
-        </Document>
+        <iframe
+          src={`${pdfUrl}#toolbar=1&navpanes=1&scrollbar=1`}
+          className="pdf-iframe"
+          title="PDF Viewer"
+          onLoad={() => setLoading(false)}
+          style={{
+            width: '100%',
+            height: 'calc(100vh - 120px)',
+            border: 'none',
+            borderRadius: '8px',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+          }}
+        />
       </div>
     </div>
   );

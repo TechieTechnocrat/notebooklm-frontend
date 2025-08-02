@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, FileText, MessageSquare, Settings } from 'lucide-react';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, usePdf, useUI } from '../../hooks/redux';
 import PdfViewer from './PdfViewer';
 import Sidebar from './Sidebar';
 import Header from './Header';

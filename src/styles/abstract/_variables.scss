@@ -6,25 +6,26 @@
   --success-color: #10b981;
   --error-color: #ef4444;
   --warning-color: #f59e0b;
-  
+
   --bg-primary: #ffffff;
   --bg-secondary: #f8fafc;
   --bg-tertiary: #f1f5f9;
   --text-primary: #1e293b;
   --text-secondary: #64748b;
   --text-muted: #94a3b8;
-  
+
   --border-color: #e2e8f0;
   --border-hover: #cbd5e1;
-  
+
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
-  
+
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -53,8 +54,8 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -259,6 +260,7 @@ body {
   &.btn-primary {
     background-color: var(--primary-color);
     color: white;
+    font-family: "Poppins";
 
     &:hover:not(:disabled) {
       background-color: var(--primary-hover);
@@ -269,7 +271,7 @@ body {
     background-color: var(--bg-secondary);
     color: var(--text-primary);
     border: 1px solid var(--border-color);
-
+    font-family: "Poppins";
     &:hover:not(:disabled) {
       background-color: var(--bg-tertiary);
       border-color: var(--border-hover);
@@ -279,6 +281,7 @@ body {
   &.btn-ghost {
     background-color: transparent;
     color: var(--text-secondary);
+    font-family: "Poppins";
 
     &:hover:not(:disabled) {
       background-color: var(--bg-secondary);
@@ -342,8 +345,12 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .fade-in {
@@ -351,8 +358,14 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .slide-in {
@@ -360,8 +373,12 @@ body {
 }
 
 @keyframes slideIn {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 // Scrollbar styling
