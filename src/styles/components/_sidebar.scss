@@ -1,0 +1,122 @@
+.sidebar {
+  width: 280px;
+  height: calc(100vh - 64px);
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  position: fixed;
+  left: 0;
+  top: 64px;
+  z-index: 999;
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+
+  &--collapsed {
+    transform: translateX(-100%);
+  }
+
+  @media (max-width: 768px) {
+    width: 280px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .sidebar-content {
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .sidebar-section {
+    &-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    &-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .sidebar-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-secondary);
+
+    &:hover {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+
+    &--active {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+
+    &--question {
+      font-size: var(--font-size-sm);
+      
+      .sidebar-item-text {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.4;
+      }
+    }
+
+    &-text {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  .sidebar-empty {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+  }
+
+  .sidebar-actions {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+  }
+}
+
+// Custom scrollbar for sidebar
+.sidebar {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+}

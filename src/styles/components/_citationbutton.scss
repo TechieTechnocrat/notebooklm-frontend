@@ -1,0 +1,95 @@
+.citation-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  text-decoration: none;
+  max-width: 200px;
+
+  &:hover {
+    background: white;
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+
+    .citation-icon {
+      transform: translate(1px, -1px);
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  .citation-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+
+    .citation-preview {
+      font-size: var(--font-size-xs);
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-top: 0.125rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
+    }
+  }
+
+  .citation-icon {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+    opacity: 0.7;
+  }
+
+  // When used in AI message context
+  .message-bubble--ai & {
+    background: var(--bg-primary);
+    color: var(--primary-color);
+    border-color: var(--border-color);
+
+    &:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--primary-color);
+    }
+
+    .citation-text .citation-preview {
+      color: var(--text-muted);
+    }
+  }
+
+  // When used in error message context
+  .message-bubble--error & {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error-color);
+    border-color: rgba(239, 68, 68, 0.3);
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: var(--error-color);
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .citation-button {
+    padding: 0.25rem 0.5rem;
+    max-width: 150px;
+
+    .citation-text .citation-preview {
+      display: none;
+    }
+  }
+}
