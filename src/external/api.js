@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Direct API instance - no config file needed
 const api = axios.create({
   baseURL: 'https://notebooklm-backend-production-da66.up.railway.app',
   headers: {
@@ -22,7 +21,6 @@ export const uploadPdfAPI = async (file) => {
 };
 
 export const askQuestionAPI = async (question) => {
-  // Send question in request body as JSON
   const response = await api.post('/ask', {
     question: question
   });
@@ -30,7 +28,3 @@ export const askQuestionAPI = async (question) => {
   return response.data;
 };
 
-export const healthCheckAPI = async () => {
-  const response = await api.get('/');
-  return response.data;
-};
