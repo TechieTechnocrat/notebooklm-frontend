@@ -24,7 +24,7 @@ export const askQuestionAPI = async (question) => {
   const response = await api.post('/ask', {
     question: question
   });
-  
+  console.log('Response from askQuestionAPI:', response.data);
   return response.data;
 };
 
