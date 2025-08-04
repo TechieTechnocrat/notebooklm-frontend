@@ -12,7 +12,7 @@ export const uploadPdfAPI = async (file) => {
   const formData = new FormData();
   formData.append('file', file);
   
-  const response = await api.post('/upload-pdf/', formData, {
+  const response = await api.post('/upload-pdf', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -23,7 +23,7 @@ export const uploadPdfAPI = async (file) => {
 
 export const askQuestionAPI = async (question) => {
   // Send question in request body as JSON
-  const response = await api.post('/ask/', {
+  const response = await api.post('/ask', {
     question: question
   });
   
