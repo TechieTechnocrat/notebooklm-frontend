@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Direct API instance - no config file needed
 const api = axios.create({
-  baseURL: 'http://127.0.0.1:8000',
+  baseURL: 'https://notebooklm-backend-production-da66.up.railway.app',
   headers: {
     'Content-Type': 'application/json',
   },
